@@ -81,17 +81,76 @@ from plotly import graph_objects as go
 fig = go.Figure()
 fig.add_trace(go.Funnel(
     # name='Today',
+    name='Yesterday',
+    # name='Week',
+    orientation="h",
+    y=name_json,
+    # x=values[2],
+    x=values[1],
+    textposition="inside",
+    #textposition="outside",
+    textinfo="value+percent previous"))
+
+fig.add_trace(go.Funnel(
+    name='Today',
     # name='Yesterday',
     # name='Week',
     orientation="h",
     y=name_json,
-    x=values[2],
+    # x=values[2],
+    x=values[0],
     #textposition="inside",
     textposition="outside",
     textinfo="value+percent previous"))
 
-print('SHOW: fig.show')
+print('SHOW № 1: fig.show')
 fig.show()
+
+
+fig2 = go.Figure()
+
+fig2.add_trace(go.Funnelarea(
+    scalegroup = "first",
+    values = values[3],
+    textinfo = "value",
+    #textinfo=name_json,
+    title = {"position": "top center", "text": "Current Week"},
+    domain = {"x": [0, 0.5], "y": [0, 0.5]}))
+
+fig2.add_trace(go.Funnelarea(
+    scalegroup = "first",
+    values = values[0],
+    textinfo = "value",
+    #textinfo=name_json,
+    title = {"position": "top center", "text": "Today"},
+    domain = {"x": [0, 0.5], "y": [0.55, 1]}))
+
+fig2.add_trace(go.Funnelarea(
+    scalegroup = "second",
+    values = values[3],
+    textinfo = "value",
+    #textinfo=name_json,
+    title = {"position": "top left", "text": "Previous Week"},
+    domain = {"x": [0.55, 1], "y": [0, 0.5]}))
+
+fig2.add_trace(go.Funnelarea(
+    scalegroup = "second",
+    values = values[1],
+    textinfo = "value",
+    #textinfo=name_json,
+    title = {"position": "top left", "text": "Yesterday"},
+    domain = {"x": [0.55, 1], "y": [0.55, 1]}))
+
+fig2.update_layout(
+    margin = {"l": 400, "r": 400},
+    shapes = [
+            {"x0": 0, "x1": 0.5, "y0": 0, "y1": 0.5},
+            {"x0": 0, "x1": 0.5, "y0": 0.55, "y1": 1},
+            {"x0": 0.55, "x1": 1, "y0": 0, "y1": 0.5},
+            {"x0": 0.55, "x1": 1, "y0": 0.55, "y1": 1}])
+
+print('SHOW № 2: fig2.show')
+fig2.show()
 
 print("# CLEAR-PROJECT") # CLEAR - PROJECT
 if os.path.exists(filename):
