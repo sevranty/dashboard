@@ -10,9 +10,9 @@ filename = 'get-dashboard.json'
 
 if os.path.exists(filename):
     os.remove(filename)
-    print('REMOVE OK: '+filename)
+    print('REMOVE OK: ' + filename)
 else:
-    print('File does not exists: '+filename)
+    print('File does not exists: ' + filename)
 
 # DOWNLOAD
 print("# DOWNLOAD")
