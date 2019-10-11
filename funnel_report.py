@@ -13,29 +13,31 @@ url = config.get('setup', 'url')
 filename = config.get('setup', 'filename')
 
 array_json = [
-    "siteLoaded",
-    "auth1Submitted",
-    "auth2Passed",
-    "loanParamsSubmitted",
-    # "passportPageOpened",
-    "passportVerificationPassed",
-    # "addressConfirmationPageOpened",
-    "regAddressConfirmed",
-    # "workInfoPageOpened",
-    "workDetailsSubmitted",
-    "bkiAgreementSigned",
-    "accountParamsSubmitted",
-    "appInSiebelCreated",
-    "appApproved",
-    "offerPageOpened",
-    "documentSigned",
-    "appExecuted",
+    "siteLoaded",  # 1
+    "auth1Submitted",  # 2
+    # "auth1Passed", # 3
+    "auth2Passed",  # 4
+    "loanParamsSubmitted",  # 5
+    # "passportPageOpened", # 6
+    "passportVerificationPassed",  # 7
+    # "addressConfirmationPageOpened", # 8
+    "regAddressConfirmed",  # 9
+    # "workInfoPageOpened", # 10
+    "workDetailsSubmitted",  # 11
+    "bkiAgreementSigned",  # 12
+    "accountParamsSubmitted",  # 13
+    "appInSiebelCreated",  # 14
+    "appApproved",  # 15
+    "offerPageOpened",  # 16
+    # "documentSigned", # 17
+    "appExecuted",  # 18
 ]
 
 name_json = [
     "ОК → Переход на сайт<br>[siteLoaded]",
     "Клиент ввел аутентификационные данные<br>[auth1Submitted]",
-    "Клиент ввел корректные аутентификационные данные<br>[auth2Passed]",
+    # "Клиент ввел корректные аутентификационные данные<br>[auth1Passed]",
+    "ОК → Телефон<br>[auth2Passed]",
     "ОК → Параметры кредита<br>[loanParamsSubmitted]",
     # "Клиент перешёл к вводу паспорта<br>[passportPageOpened]",
     "ОК → Паспорт<br>[passportVerificationPassed]",
@@ -48,7 +50,7 @@ name_json = [
     "Заявка заведена в Siebel<br>[appInSiebelCreated]",
     "ОК → Заявка одобрена скорингом<br>[appApproved]",
     "ОК → Ознакомился с кредитом<br>[offerPageOpened]",
-    "ОК → Клиент подписал договор<br>[documentSigned]",
+    # "ОК → Клиент подписал договор<br>[documentSigned]",
     "Риск контролер (Регистратор ГО) подтвердил выдачу<br>[appExecuted]",
 ]
 
@@ -175,7 +177,7 @@ week_sprint_perc = [week_sprint[i + 1] / week_sprint[i] if week_sprint[i] else 0
 week_sprint_perc_norm = [round(l1, 5) * 7000 for l1 in week_sprint_perc]
 
 name_json_minus = name_json[1:]
-name_json_norm = ["<b>%s%%</b> → %s<br>%s" % (round(spl1, 2) * 100, spl2, spl3) for spl1, spl2, spl3 in
+name_json_norm = ["<b>%s%%</b> → %s<br>%s" % (round(round(spl1, 2) * 100), spl2, spl3) for spl1, spl2, spl3 in
                   zip(week_sprint_perc, week_sprint[1:], name_json_minus)]
 
 # SAMPLE: https://plot.ly/python/graphing-multiple-chart-types/
@@ -192,8 +194,8 @@ fig3.add_trace(
         # y = [20000, 15000, 10000, 5000, 0]
         y=week_sprint[1:],
         name="absolute",
-        #line_shape='absolute',
-        #plot_bgcolor='white',
+        # line_shape='absolute',
+        # plot_bgcolor='white',
     ))
 
 fig3.add_trace(
@@ -206,8 +208,8 @@ fig3.add_trace(
         # y=[100, 75, 50, 25, 0]
         y=week_sprint_perc_norm,
         name="100% relative",
-        #line_shape='100% relative',
-        #plot_bgcolor='white',
+        # line_shape='100% relative',
+        # plot_bgcolor='white',
     ))
 
 fig3.show()
